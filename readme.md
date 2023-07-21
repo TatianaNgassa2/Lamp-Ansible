@@ -1,4 +1,4 @@
-# LAMP on Ubuntu 18.04
+# deploy LAMP on Ubuntu 18.04
 
 1- install ansible on your machine
 
@@ -29,9 +29,10 @@
 
 8- test ansible connection to your virtual machine
 
-    ansible all -m ping -u ntt
+    ansible all -m ping -u user_login_name
 
 9- Go to playbook.yml directory and run:
 
     ansible-playbook   playbook.yml --extra-vars "ansible_sudo_pass=virtual_machine_user_password"
 
+10- video link: https://drive.google.com/file/d/1ASnRPnO3FA-_r5PchsDa_fQaQnrh04ig/view?usp=drive_link
