@@ -1,49 +1,37 @@
 # LAMP on Ubuntu 18.04
 
-This playbook will install a LAMP environment (**L**inux, **A**pache, **M**ySQL and **P**HP) on an Ubuntu 18.04 machine, as explained in the guide on [How to Use Ansible to Install and Configure LAMP on Ubuntu 18.04](#). A virtualhost will be created with the options specified in the `vars/default.yml` variable file.
+1- install ansible on your machine
 
-## Settings
+  only step 1 of  https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-ubuntu-22-04
 
-- `mysql_root_password`: the password for the MySQL root account.
-- `app_user`: a remote non-root user on the Ansible host that will own the application files.
-- `http_host`: your domain name.
-- `http_conf`: the name of the configuration file that will be created within Apache.
-- `http_port`: HTTP port, default is 80.
-- `disable_default`: whether or not to disable the default Apache website. When set to true, your new virtualhost should be used as default website. Default is true.
+2- install ssh 
+   https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-20-04/
+
+3- create ssh keys on your machine with this command: ssh-keygen
+   
+
+4- create a virtual machine 
+  https://www.tecmint.com/install-qemu-kvm-ubuntu-create-virtual-machines/
 
 
-## Running this Playbook
+5- copy public ssh key to your virtual machine
 
-Quickstart guide for those already familiar with Ansible:
+6- put virtual machine ip address in /etc/ansible/host
 
-### 1. Obtain the playbook
-```shell
-git clone https://github.com/do-community/ansible-playbooks.git
-cd ansible-playbooks/lamp_ubuntu1804
-```
+  example: 
+       [servers]
+       server1 ansible_host=virtual_machine_ip_address ansible_user=virtual_machine_user
 
-### 2. Customize Options
+7-  in /etc/ansible/ansible.cfg put:
+ 
+    [defaults]
+    remote_user=virtual_machine_user
 
-```shell
-nano vars/default.yml
-```
+8- test ansible connection to your virtual machine
 
-```yml
----
-mysql_root_password: "mysql_root_password"
-app_user: "sammy"
-http_host: "your_domain"
-http_conf: "your_domain.conf"
-http_port: "80"
-disable_default: true
-```
+    ansible all -m ping -u ntt
 
-### 3. Run the Playbook
+9- Go to playbook.yml directory and run:
 
-```command
-ansible-playbook -l [target] -i [inventory file] -u [remote user] playbook.yml
-```
-
-For more information on how to run this Ansible setup, please check this guide: [soon]().
-ansible-playbook   playbook.yml --extra-vars "ansible_sudo_pass=yourPassword"
+    ansible-playbook   playbook.yml --extra-vars "ansible_sudo_pass=virtual_machine_user_password"
 
