@@ -1,0 +1,7 @@
+---
+mysql_root_password: "mysql"
+app_user: "nttansible"
+http_host: "192.168.1.100"
+http_conf: "192.168.1.100.conf"
+http_port: "80"
+disable_default: true
